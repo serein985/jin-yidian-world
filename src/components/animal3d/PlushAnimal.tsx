@@ -1,8 +1,10 @@
 import { useFrame, useThree } from "@react-three/fiber";
 import { useRef } from "react";
 import {
+  CanvasTexture,
   Group,
   MathUtils,
+  RepeatWrapping,
 } from "three";
 import type { ModelConfig } from "./model-configs";
 
@@ -10,6 +12,32 @@ interface PlushAnimalProps {
   config: ModelConfig;
   interactive?: boolean;
   onTouchRegion?: (region: string) => void;
+}
+
+let furTexture: CanvasTexture | null = null;
+
+function getFurTexture() {
+  if (typeof document === "undefined") return null;
+  if (furTexture) return furTexture;
+  const canvas = document.createElement("canvas");
+  canvas.width = 96;
+  canvas.height = 96;
+  const context = canvas.getContext("2d");
+  if (!context) return null;
+  const image = context.createImageData(canvas.width, canvas.height);
+  for (let index = 0; index < image.data.length; index += 4) {
+    const value = 105 + Math.floor(Math.random() * 95);
+    image.data[index] = value;
+    image.data[index + 1] = value;
+    image.data[index + 2] = value;
+    image.data[index + 3] = 255;
+  }
+  context.putImageData(image, 0, 0);
+  furTexture = new CanvasTexture(canvas);
+  furTexture.wrapS = RepeatWrapping;
+  furTexture.wrapT = RepeatWrapping;
+  furTexture.repeat.set(8, 8);
+  return furTexture;
 }
 
 function PlushMaterial({
@@ -29,6 +57,8 @@ function PlushMaterial({
       sheen={0.9}
       sheenColor={color}
       sheenRoughness={0.9}
+      bumpMap={getFurTexture()}
+      bumpScale={0.018}
     />
   );
 }
@@ -48,7 +78,7 @@ function Eye({
 }) {
   return (
     <group position={[x, y, z]} scale={scale}>
-      <mesh scale={[0.16, 0.2, 0.09]}>
+      <mesh scale={[0.195, 0.26, 0.09]}>
         <sphereGeometry args={[1, 32, 24]} />
         <meshPhysicalMaterial
           color="#fffdf5"
@@ -57,7 +87,7 @@ function Eye({
           clearcoatRoughness={0.18}
         />
       </mesh>
-      <mesh position={[0, 0.005, 0.088]} scale={[0.105, 0.145, 0.055]}>
+      <mesh position={[0, 0.002, 0.095]} scale={[0.13, 0.19, 0.06]}>
         <sphereGeometry args={[1, 32, 24]} />
         <meshPhysicalMaterial
           color={eyeColor}
@@ -74,6 +104,21 @@ function Eye({
         <sphereGeometry args={[1, 16, 12]} />
         <meshBasicMaterial color="#ffffff" opacity={0.72} transparent />
       </mesh>
+      {[
+        [-0.105, 0.19, 0.12, 0.34],
+        [-0.145, 0.148, 0.12, 0.58],
+        [-0.158, 0.1, 0.12, 0.78],
+      ].map(([x, y, z, rotation]) => (
+        <mesh
+          key={`${x}-${y}`}
+          position={[x, y, z]}
+          rotation={[0, 0, rotation]}
+          scale={[0.06, 0.008, 0.008]}
+        >
+          <capsuleGeometry args={[0.5, 1, 5, 10]} />
+          <meshBasicMaterial color="#302622" />
+        </mesh>
+      ))}
     </group>
   );
 }
@@ -402,8 +447,8 @@ export function PlushAnimal({
           </mesh>
         )}
 
-        <Eye x={-0.25} y={0.08} z={0.75} eyeColor={config.eye} />
-        <Eye x={0.25} y={0.08} z={0.75} eyeColor={config.eye} />
+        <Eye x={-0.255} y={0.08} z={0.75} eyeColor={config.eye} />
+        <Eye x={0.255} y={0.08} z={0.75} eyeColor={config.eye} />
 
         <mesh position={[0, -0.23, 0.72]} scale={config.snoutScale}>
           <sphereGeometry args={[1, 36, 26]} />

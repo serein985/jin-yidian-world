@@ -45,13 +45,23 @@ test("complete personalized animal and calendar flow", async ({ page }) => {
   await login(page);
 
   await expect(page.getByRole("heading", { name: "栗栗" })).toBeVisible();
-  await expect(page.locator(".animal-3d-stage canvas")).toBeVisible();
+  await expect(page.locator(".painted-animal").first()).toBeVisible();
   await page.waitForTimeout(1200);
   await page.screenshot({ path: "work/personalized-home.png" });
-  const homeCanvas = await page.locator(".animal-3d-stage").screenshot({
-    path: "work/personalized-3d-home.png",
+  const portrait = await page.locator(".home-hero__stage").screenshot({
+    path: "work/personalized-portrait-home.png",
   });
-  expect(homeCanvas.byteLength).toBeGreaterThan(10_000);
+  expect(portrait.byteLength).toBeGreaterThan(10_000);
+
+  await page.getByRole("button", { name: "进入栗栗的世界" }).click();
+  await page.getByRole("button", { name: "3D", exact: true }).click();
+  await expect(page.locator(".animal-3d-stage canvas")).toBeVisible();
+  await page.waitForTimeout(1200);
+  const detail3D = await page.locator(".detail-model").screenshot({
+    path: "work/personalized-3d-detail.png",
+  });
+  expect(detail3D.byteLength).toBeGreaterThan(20_000);
+  await page.getByRole("button", { name: "返回" }).click();
 
   await page.getByRole("button", { name: "添加动物" }).click();
   await page.getByRole("button", { name: "添加糯糯" }).click();

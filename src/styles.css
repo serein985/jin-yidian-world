@@ -672,11 +672,86 @@ textarea {
   background: rgba(25, 53, 32, 0.16);
   filter: blur(15px);
   content: "";
+  pointer-events: none;
 }
 
 .home-hero__stage .animal-3d-stage,
-.home-hero__stage .artwork-stage {
+.home-hero__stage .artwork-stage,
+.painted-stage-hit {
   height: 100%;
+}
+
+.painted-stage-hit {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.painted-stage-hit--detail {
+  height: 100%;
+}
+
+.painted-animal {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 25px 24px rgba(29, 58, 36, 0.2));
+}
+
+.painted-body {
+  transform-box: view-box;
+  transform-origin: 180px 390px;
+  animation: painted-breathe 4.4s ease-in-out infinite;
+}
+
+.painted-head {
+  transform-box: view-box;
+  transform-origin: 180px 210px;
+  transition: transform 380ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.painted-eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: painted-blink 6.8s infinite;
+}
+
+.painted-eye--right {
+  animation-delay: 70ms;
+}
+
+.painted-mouth {
+  display: none;
+}
+
+.painted-mood--idle .painted-mouth--calm,
+.painted-mood--happy .painted-mouth--happy,
+.painted-mood--eating .painted-mouth--eating {
+  display: block;
+}
+
+.painted-stage-hit:active .painted-head {
+  transform: translateY(-5px) rotate(-1.3deg);
+}
+
+.painted-stage-hit:active .painted-body {
+  animation-play-state: paused;
+  transform: scale(0.985, 1.012);
+}
+
+.painted-tail {
+  transform-box: view-box;
+  transform-origin: 242px 320px;
+  animation: painted-tail 5.4s ease-in-out infinite;
+}
+
+.painted-sparkles {
+  animation: painted-twinkle 3.2s ease-in-out infinite alternate;
 }
 
 .hero-status {
@@ -813,6 +888,13 @@ textarea {
   background: #708a63;
   font-family: "STSong", "Songti SC", serif;
   font-size: 15px;
+  overflow: hidden;
+}
+
+.animal-rail__item > span .painted-animal {
+  width: 52px;
+  height: 60px;
+  transform: translate(-11px, -9px);
 }
 
 .animal-rail__item small {
@@ -988,10 +1070,40 @@ textarea {
   min-height: 260px;
   overflow: hidden;
   border-radius: inherit;
-  background: linear-gradient(165deg, #dce5ce, #718c6c 60%, #344f3b);
+  background:
+    radial-gradient(ellipse at 68% 24%, rgba(250, 239, 204, 0.65), transparent 28%),
+    radial-gradient(ellipse at 20% 68%, rgba(42, 77, 51, 0.2), transparent 34%),
+    linear-gradient(165deg, #dce5ce, #829b78 52%, #344f3b);
+}
+
+.animal-3d-stage::before,
+.animal-3d-stage::after {
+  position: absolute;
+  z-index: 0;
+  width: 180px;
+  height: 24px;
+  border-radius: 100% 0;
+  background: rgba(58, 98, 60, 0.18);
+  filter: blur(2px);
+  content: "";
+  pointer-events: none;
+  transform: rotate(-28deg);
+}
+
+.animal-3d-stage::before {
+  top: 17%;
+  left: -60px;
+}
+
+.animal-3d-stage::after {
+  right: -38px;
+  bottom: 19%;
+  transform: rotate(152deg);
 }
 
 .animal-3d-stage canvas {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100% !important;
   height: 100% !important;
@@ -1346,6 +1458,7 @@ textarea {
   z-index: 5;
   padding: 5px 18px 0;
   color: #213b2a;
+  pointer-events: none;
 }
 
 .detail-title h1 {
@@ -1363,12 +1476,44 @@ textarea {
 
 .detail-model {
   position: absolute;
+  z-index: 4;
   top: 64px;
   right: 8px;
   bottom: 5px;
   left: 8px;
   overflow: hidden;
   border-radius: 46% 46% 8px 8px;
+}
+
+.stage-mode-toggle {
+  position: absolute;
+  z-index: 7;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid rgba(255, 252, 238, 0.24);
+  border-radius: 8px;
+  background: rgba(28, 61, 40, 0.32);
+  backdrop-filter: blur(8px);
+}
+
+.stage-mode-toggle button {
+  min-width: 42px;
+  min-height: 34px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 6px;
+  color: rgba(255, 251, 235, 0.72);
+  background: transparent;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.stage-mode-toggle button.is-active {
+  color: #294331;
+  background: #f8f3e4;
 }
 
 .detail-speech {
@@ -1614,7 +1759,8 @@ textarea {
   opacity: 0.55;
 }
 
-.preset-orb {
+.preset-orb,
+.preset-thumb {
   position: relative;
   display: block;
   width: 50px;
@@ -1623,6 +1769,13 @@ textarea {
   border-radius: 44% 44% 48% 48%;
   background: #bb7c5f;
   box-shadow: 0 10px 15px rgba(47, 63, 44, 0.16);
+  overflow: hidden;
+}
+
+.preset-thumb .painted-animal {
+  width: 88px;
+  height: 103px;
+  transform: translate(-18px, -9px);
 }
 
 .preset-orb i {
@@ -2899,6 +3052,31 @@ textarea {
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+@keyframes painted-breathe {
+  0%,
+  100% { scale: 1; }
+  50% { scale: 1.012 1.025; }
+}
+
+@keyframes painted-blink {
+  0%,
+  43%,
+  47%,
+  100% { transform: scaleY(1); }
+  45% { transform: scaleY(0.08); }
+}
+
+@keyframes painted-tail {
+  0%,
+  100% { transform: rotate(0); }
+  50% { transform: rotate(2.5deg); }
+}
+
+@keyframes painted-twinkle {
+  from { opacity: 0.35; }
+  to { opacity: 0.8; }
 }
 
 @keyframes modal-fade {

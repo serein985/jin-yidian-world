@@ -11,6 +11,7 @@ import { Animal3DStage } from "../components/animal3d/Animal3DStage";
 import { AnimalArtworkStage } from "../components/AnimalArtworkStage";
 import { AppHeader } from "../components/AppHeader";
 import { FeedDrawer } from "../components/FeedDrawer";
+import { PaintedAnimal } from "../components/PaintedAnimal";
 import { PRESET_ANIMALS_BY_ID } from "../domain/preset-animals";
 import { localDateKey, type AnimalProfile, type WorldState } from "../domain/world";
 
@@ -42,6 +43,7 @@ export function AnimalDetailScreen({
   onOpenProfile,
 }: AnimalDetailScreenProps) {
   const [feedOpen, setFeedOpen] = useState(false);
+  const [show3D, setShow3D] = useState(false);
   const [message, setMessage] = useState(
     animal.kind === "preset"
       ? PRESET_ANIMALS_BY_ID[animal.presetId!]?.tagline ?? "今天也想离你近一点。"
@@ -90,12 +92,40 @@ export function AnimalDetailScreen({
           <h1>{animal.name}</h1>
           <span>{animal.species}</span>
         </div>
+        {preset && (
+          <div className="stage-mode-toggle" role="group" aria-label="动物展示模式">
+            <button
+              type="button"
+              className={!show3D ? "is-active" : ""}
+              onClick={() => setShow3D(false)}
+            >
+              插画
+            </button>
+            <button
+              type="button"
+              className={show3D ? "is-active" : ""}
+              onClick={() => setShow3D(true)}
+            >
+              3D
+            </button>
+          </div>
+        )}
         <div className="detail-model">
           {preset ? (
-            <Animal3DStage
-              preset={preset}
-              onTouchRegion={pet}
-            />
+            <>
+              {show3D ? (
+                <Animal3DStage preset={preset} onTouchRegion={pet} />
+              ) : (
+                <button
+                  type="button"
+                  className="painted-stage-hit painted-stage-hit--detail"
+                  aria-label={`轻轻抚摸${animal.name}插画`}
+                  onClick={pet}
+                >
+                  <PaintedAnimal presetId={preset.id} />
+                </button>
+              )}
+            </>
           ) : (
             <AnimalArtworkStage
               artworkUrl={artworkUrl}

@@ -26,14 +26,13 @@ export function Animal3DCanvas({
       camera={
         variant === "home"
           ? { position: [0, 1.3, 6.2], fov: 35 }
-          : { position: [0, 1.35, 4.9], fov: 35 }
+          : { position: [0, 1.26, 7.15], fov: 35 }
       }
       dpr={reducedQuality ? [1, 1.25] : [1, 2]}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       shadows
     >
       <Suspense fallback={null}>
-        <color attach="background" args={["#7f9a7d"]} />
         <fog attach="fog" args={["#789375", 5.5, 11]} />
         <ambientLight intensity={0.75} color="#edf1da" />
         <directionalLight
@@ -53,7 +52,7 @@ export function Animal3DCanvas({
         />
         <pointLight position={[0, 1.8, 3]} intensity={0.5} color="#ffd1b2" />
         <group
-          scale={variant === "home" ? 0.8 : 1}
+          scale={variant === "home" ? 0.8 : 0.76}
           position={[0, variant === "home" ? -0.04 : 0, 0]}
         >
           <PlushAnimal
@@ -85,10 +84,10 @@ export function Animal3DCanvas({
           enablePan={false}
           enableZoom={interactive}
           minDistance={3.4}
-          maxDistance={6.2}
+          maxDistance={8.2}
           minPolarAngle={Math.PI * 0.33}
           maxPolarAngle={Math.PI * 0.57}
-          autoRotate={interactive && !reducedQuality}
+          autoRotate={false}
           autoRotateSpeed={0.32}
           target={[0, variant === "home" ? 0.96 : 1.04, 0]}
         />

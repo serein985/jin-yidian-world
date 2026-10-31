@@ -1,4 +1,5 @@
 import type { AnimalProfile } from "../domain/world";
+import { PaintedAnimal } from "./PaintedAnimal";
 
 interface AnimalRailProps {
   animals: AnimalProfile[];
@@ -32,7 +33,13 @@ export function AnimalRail({
           aria-current={animal.id === activeAnimalId ? "true" : undefined}
           onClick={() => onSelect(animal.id)}
         >
-          <span>{initials(animal.name)}</span>
+          <span>
+            {animal.presetId ? (
+              <PaintedAnimal presetId={animal.presetId} compact />
+            ) : (
+              initials(animal.name)
+            )}
+          </span>
           <small>{animal.name}</small>
           <i>{animal.species}</i>
         </button>

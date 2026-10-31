@@ -3,6 +3,7 @@ import {
   PRESET_ANIMALS,
   type PresetAnimalId,
 } from "../domain/preset-animals";
+import { PaintedAnimal } from "./PaintedAnimal";
 
 interface PresetLibraryProps {
   existingPresetIds: Array<PresetAnimalId | null>;
@@ -67,9 +68,8 @@ export function PresetLibrary({
                 aria-label={added ? `已添加${animal.name}` : `添加${animal.name}`}
                 onClick={() => onAdd(animal.id)}
               >
-                <span className="preset-orb">
-                  <i />
-                  <i />
+                <span className="preset-thumb" aria-hidden="true">
+                  <PaintedAnimal presetId={animal.id} compact />
                 </span>
                 <span>
                   <strong>{animal.name}</strong>

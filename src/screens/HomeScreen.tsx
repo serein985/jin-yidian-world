@@ -7,10 +7,10 @@ import {
   Sparkles,
   Trash2,
 } from "lucide-react";
-import { Animal3DStage } from "../components/animal3d/Animal3DStage";
 import { AnimalArtworkStage } from "../components/AnimalArtworkStage";
 import { AnimalRail } from "../components/AnimalRail";
 import { AppHeader } from "../components/AppHeader";
+import { PaintedAnimal } from "../components/PaintedAnimal";
 import { PresetLibrary } from "../components/PresetLibrary";
 import { PRESET_ANIMALS_BY_ID, type PresetAnimalId } from "../domain/preset-animals";
 import {
@@ -113,12 +113,14 @@ export function HomeScreen({
 
             <div className={`home-hero__stage home-hero__stage--${activeAnimal.theme}`}>
               {preset ? (
-                <Animal3DStage
-                  preset={preset}
-                  variant="home"
-                  reducedQuality={false}
-                  onTouchRegion={() => onPet(activeAnimal.id)}
-                />
+                <button
+                  type="button"
+                  className="painted-stage-hit"
+                  aria-label={`轻轻抚摸${activeAnimal.name}`}
+                  onClick={() => onPet(activeAnimal.id)}
+                >
+                  <PaintedAnimal presetId={preset.id} />
+                </button>
               ) : (
                 <AnimalArtworkStage
                   artworkUrl={artworkUrls[activeAnimal.id] ?? null}
