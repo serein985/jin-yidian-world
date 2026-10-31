@@ -3570,13 +3570,13 @@ textarea {
   animation: none;
 }
 
-.painted-eye__open {
+.painted-eye__dot {
   transform-box: fill-box;
   transform-origin: center;
   animation: painted-blink 6.4s infinite;
 }
 
-.painted-eye--right .painted-eye__open {
+.painted-eye--right .painted-eye__dot {
   animation-delay: 70ms;
 }
 
@@ -3584,8 +3584,8 @@ textarea {
   display: none;
 }
 
-.painted-mood--happy .painted-eye__open,
-.painted-mood--eating .painted-eye__open {
+.painted-mood--happy .painted-eye__idle,
+.painted-mood--eating .painted-eye__idle {
   display: none;
   animation: none;
 }
@@ -3595,11 +3595,32 @@ textarea {
   display: block;
 }
 
+.painted-stage-hit:active .painted-eye__idle {
+  display: none;
+}
+
+.painted-stage-hit:active .painted-eye__closed {
+  display: block;
+}
+
 .painted-mouth--happy,
 .painted-mouth--eating {
   transform-box: fill-box;
   transform-origin: center;
   animation: sticker-mouth-pop 380ms cubic-bezier(0.2, 0.85, 0.25, 1.2) both;
+}
+
+.painted-brows {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sticker-brow-float 4.8s ease-in-out infinite;
+}
+
+.painted-wink-spark,
+.painted-eye-spark {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: painted-twinkle 2.6s ease-in-out infinite alternate;
 }
 
 .painted-tail {
@@ -3653,6 +3674,12 @@ textarea {
 @keyframes sticker-note-float {
   0%, 100% { translate: 0 0; }
   50% { translate: 2px -5px; }
+}
+
+@keyframes sticker-brow-float {
+  0%, 100% { translate: 0 0; }
+  48% { translate: 0 -0.8px; }
+  62% { translate: 0 0.3px; }
 }
 
 @keyframes artwork-local-bounce {

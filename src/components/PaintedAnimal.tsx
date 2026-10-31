@@ -118,6 +118,27 @@ const palettes: Record<PresetAnimalId, StickerPalette> = {
   },
 };
 
+type StickerExpression =
+  | "content"
+  | "wink"
+  | "squint"
+  | "shy"
+  | "sleepy"
+  | "bright"
+  | "sly"
+  | "excited";
+
+const expressionByPreset: Record<PresetAnimalId, StickerExpression> = {
+  panda: "content",
+  "red-panda": "wink",
+  tiger: "squint",
+  sheep: "shy",
+  capybara: "sleepy",
+  rabbit: "bright",
+  fox: "sly",
+  penguin: "excited",
+};
+
 const thickStroke = {
   stroke: OUTLINE,
   strokeWidth: 6.5,
@@ -589,6 +610,148 @@ function FaceMarkings({
   return null;
 }
 
+function DotEye({
+  x,
+  palette,
+  size = 1,
+  excited = false,
+}: {
+  x: number;
+  palette: StickerPalette;
+  size?: number;
+  excited?: boolean;
+}) {
+  return (
+    <g className="painted-eye__dot">
+      {excited && (
+        <ellipse cx={x} cy="190" rx={10 * size} ry={12.5 * size} fill="#fff9ed" />
+      )}
+      <ellipse
+        cx={x}
+        cy="190"
+        rx={(excited ? 5.7 : 5.2) * size}
+        ry={(excited ? 7.8 : 7) * size}
+        fill={palette.dark}
+      />
+      <circle
+        cx={x + 1.8 * size}
+        cy={187.3 - 0.5 * size}
+        r={1.5 * size}
+        fill="#fffdf6"
+      />
+    </g>
+  );
+}
+
+function ClosedEye({
+  x,
+  palette,
+  curve = "up",
+  color = palette.dark,
+}: {
+  x: number;
+  palette: StickerPalette;
+  curve?: "up" | "down" | "flat";
+  color?: string;
+}) {
+  const path =
+    curve === "up"
+      ? `M${x - 11} 191c6-7 15-7 22 0`
+      : curve === "down"
+        ? `M${x - 10} 188c6 7 14 7 20 0`
+        : `M${x - 11} 190h22`;
+  return (
+    <path
+      d={path}
+      fill="none"
+      stroke={color}
+      strokeWidth="3.8"
+      strokeLinecap="round"
+    />
+  );
+}
+
+function SleepyEye({ x, palette }: { x: number; palette: StickerPalette }) {
+  return (
+    <g>
+      <path
+        d={`M${x - 10} 187c5 5 13 5 19 0`}
+        fill="none"
+        stroke={palette.dark}
+        strokeWidth="3.2"
+        strokeLinecap="round"
+      />
+      <path
+        d={`M${x - 6} 193c3 2 7 2 10 0`}
+        fill="none"
+        stroke={palette.dark}
+        strokeWidth="2.3"
+        strokeLinecap="round"
+        opacity="0.55"
+      />
+      <path
+        d={`M${x - 5} 184l-2-4M${x + 4} 184l2-4`}
+        fill="none"
+        stroke={palette.dark}
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        opacity="0.6"
+      />
+    </g>
+  );
+}
+
+function SlyEye({ x, palette }: { x: number; palette: StickerPalette }) {
+  return (
+    <g>
+      <path
+        d={`M${x - 11} 187c7-4 15-3 22 1`}
+        fill="none"
+        stroke={palette.dark}
+        strokeWidth="3.2"
+        strokeLinecap="round"
+      />
+      <ellipse cx={x} cy="190.5" rx="3.4" ry="2.5" fill={palette.dark} />
+      <circle cx={x + 1.2} cy="189.7" r="0.9" fill="#fff9ed" />
+    </g>
+  );
+}
+
+function EyeBrows({
+  expression,
+  palette,
+}: {
+  expression: StickerExpression;
+  palette: StickerPalette;
+}) {
+  const paths: Record<StickerExpression, string[]> = {
+    content: ["M115 174c8 1 15 4 21 8", "M245 174c-8 1-15 4-21 8"],
+    wink: ["M113 174c7-3 14-2 20 2", "M239 169c7 0 13 3 18 8"],
+    squint: ["M113 170c8 4 14 9 18 15", "M247 170c-8 4-14 9-18 15"],
+    shy: ["M114 177c7-6 15-7 23-2", "M246 177c-7-6-15-7-23-2"],
+    sleepy: ["M114 173c7-1 14-2 21-5", "M225 168c7 3 14 4 21 5"],
+    bright: ["M113 169c7-5 15-4 22 2", "M225 171c7-6 15-7 22-2"],
+    sly: ["M112 171c7-5 15-4 22 2", "M230 172c6-1 11-3 16-6"],
+    excited: ["M112 168c6-6 13-6 21-1", "M227 167c8-5 15-5 21 1"],
+  };
+
+  return (
+    <g
+      className="painted-brows"
+      data-expression-brows={expression}
+      fill="none"
+      stroke={palette.dark}
+      strokeWidth="2.8"
+      strokeLinecap="round"
+      opacity="0.82"
+    >
+      {paths[expression].map((path) => (
+        <path key={path} d={path} />
+      ))}
+    </g>
+  );
+}
+
 function Eyes({
   presetId,
   palette,
@@ -596,9 +759,41 @@ function Eyes({
   presetId: PresetAnimalId;
   palette: StickerPalette;
 }) {
-  const onDarkPatch = presetId === "panda";
+  const expression = expressionByPreset[presetId];
+
+  function IdleEye({ side }: { side: "left" | "right" }) {
+    const x = side === "left" ? 132 : 228;
+
+    if (expression === "content") {
+      return <ClosedEye x={x} palette={palette} curve="down" color="#fff9ed" />;
+    }
+    if (expression === "squint") {
+      return <ClosedEye x={x} palette={palette} curve="up" />;
+    }
+    if (expression === "shy") {
+      return <ClosedEye x={x} palette={palette} curve="down" />;
+    }
+    if (expression === "sleepy") {
+      return <SleepyEye x={x} palette={palette} />;
+    }
+    if (expression === "sly") {
+      return <SlyEye x={x} palette={palette} />;
+    }
+    if (expression === "wink" && side === "left") {
+      return <ClosedEye x={x} palette={palette} curve="up" />;
+    }
+    if (expression === "excited") {
+      return <DotEye x={x} palette={palette} size={1.08} excited />;
+    }
+    if (expression === "bright") {
+      return <DotEye x={x} palette={palette} size={1.02} />;
+    }
+    return <DotEye x={x} palette={palette} />;
+  }
+
   return (
     <>
+      <EyeBrows expression={expression} palette={palette} />
       {(["left", "right"] as const).map((side) => {
         const x = side === "left" ? 132 : 228;
         return (
@@ -607,31 +802,40 @@ function Eyes({
             className={`painted-eye painted-eye--${side}`}
             data-eye={side}
           >
-            <g className="painted-eye__open">
-              {onDarkPatch && (
-                <ellipse cx={x} cy="190" rx="13" ry="17" fill="#fff9ed" />
-              )}
-              <ellipse
-                className="painted-eye__pupil"
-                cx={x}
-                cy="190"
-                rx={onDarkPatch ? 5.5 : 7}
-                ry={onDarkPatch ? 7 : 9.5}
-                fill={palette.dark}
-              />
-              <circle cx={x + 2.5} cy="186.5" r="2" fill="#fffdf6" />
+            <g className="painted-eye__idle">
+              <IdleEye side={side} />
             </g>
             <path
               className="painted-eye__closed"
-              d={`M${x - 12} 192c7-9 17-9 24 0`}
+              d={`M${x - 11} 192c6-7 15-7 22 0`}
               fill="none"
               stroke={palette.dark}
-              strokeWidth="4.5"
+              strokeWidth="3.8"
               strokeLinecap="round"
             />
           </g>
         );
       })}
+      {expression === "wink" && (
+        <path
+          className="painted-wink-spark"
+          d="M252 170v8M248 174h8"
+          fill="none"
+          stroke={palette.propDark}
+          strokeWidth="2.4"
+          strokeLinecap="round"
+        />
+      )}
+      {expression === "bright" && (
+        <path
+          className="painted-eye-spark"
+          d="M257 169v9M253 173h9"
+          fill="none"
+          stroke={palette.outfitDark}
+          strokeWidth="2.2"
+          strokeLinecap="round"
+        />
+      )}
     </>
   );
 }
@@ -644,6 +848,16 @@ function Mouth({
   palette: StickerPalette;
 }) {
   const tinyMuzzle = presetId === "panda";
+  const calmMouthPaths: Record<PresetAnimalId, string> = {
+    panda: "M169 238c5-3 9-2 11 2 2-4 6-5 11-2",
+    "red-panda": "M167 237c8 10 18 10 26 0",
+    tiger: "M169 237c5 4 8 6 11 6 3 0 7-2 11-6",
+    sheep: "M174 237c2 6 4 8 6 8 3 0 5-2 7-8",
+    capybara: "M167 236c8 5 17 6 26 2",
+    rabbit: "M170 237c4 4 7 4 10 0 3 4 6 4 10 0",
+    fox: "M164 236c9 9 21 10 32 4",
+    penguin: "",
+  };
   return (
     <>
       {!tinyMuzzle && (
@@ -674,10 +888,10 @@ function Mouth({
         <>
           <g className="painted-mouth painted-mouth--calm">
             <path
-              d="M180 233c-2 9-8 15-17 16M180 233c2 9 8 15 17 16"
+              d={calmMouthPaths[presetId]}
               fill="none"
               stroke={palette.dark}
-              strokeWidth="3.6"
+              strokeWidth="3.4"
               strokeLinecap="round"
             />
           </g>
@@ -988,6 +1202,7 @@ export function PaintedAnimal({
       role="img"
       aria-label={`${preset.species}${preset.name}的手绘贴纸插画`}
       data-art-style="hand-drawn-sticker"
+      data-expression={expressionByPreset[presetId]}
       data-preset-id={presetId}
     >
       <ellipse
