@@ -703,57 +703,6 @@ textarea {
   filter: drop-shadow(0 25px 24px rgba(29, 58, 36, 0.2));
 }
 
-.painted-body {
-  transform-box: view-box;
-  transform-origin: 180px 390px;
-  animation: painted-breathe 4.4s ease-in-out infinite;
-}
-
-.painted-head {
-  transform-box: view-box;
-  transform-origin: 180px 210px;
-  transition: transform 380ms cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.painted-eye {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: painted-blink 6.8s infinite;
-}
-
-.painted-eye--right {
-  animation-delay: 70ms;
-}
-
-.painted-mouth {
-  display: none;
-}
-
-.painted-mood--idle .painted-mouth--calm,
-.painted-mood--happy .painted-mouth--happy,
-.painted-mood--eating .painted-mouth--eating {
-  display: block;
-}
-
-.painted-stage-hit:active .painted-head {
-  transform: translateY(-5px) rotate(-1.3deg);
-}
-
-.painted-stage-hit:active .painted-body {
-  animation-play-state: paused;
-  transform: scale(0.985, 1.012);
-}
-
-.painted-tail {
-  transform-box: view-box;
-  transform-origin: 242px 320px;
-  animation: painted-tail 5.4s ease-in-out infinite;
-}
-
-.painted-sparkles {
-  animation: painted-twinkle 3.2s ease-in-out infinite alternate;
-}
-
 .hero-status {
   position: absolute;
   z-index: 5;
@@ -3054,31 +3003,6 @@ textarea {
   to { transform: rotate(360deg); }
 }
 
-@keyframes painted-breathe {
-  0%,
-  100% { scale: 1; }
-  50% { scale: 1.012 1.025; }
-}
-
-@keyframes painted-blink {
-  0%,
-  43%,
-  47%,
-  100% { transform: scaleY(1); }
-  45% { transform: scaleY(0.08); }
-}
-
-@keyframes painted-tail {
-  0%,
-  100% { transform: rotate(0); }
-  50% { transform: rotate(2.5deg); }
-}
-
-@keyframes painted-twinkle {
-  from { opacity: 0.35; }
-  to { opacity: 0.8; }
-}
-
 @keyframes modal-fade {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -3551,135 +3475,215 @@ textarea {
   box-shadow: 0 4px 0 rgba(87, 65, 51, 0.06);
 }
 
-.preset-thumb .painted-animal {
-  width: 88px;
-  height: 102px;
-  filter: none;
-  transform: translate(-18px, -10px);
-}
-
 .painted-animal {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
   overflow: visible;
+  isolation: isolate;
 }
 
-.painted-head {
-  translate: var(--painted-look-x) var(--painted-look-y);
+.painted-animal__halo {
+  position: absolute;
+  z-index: -1;
+  right: 13%;
+  bottom: 11%;
+  left: 13%;
+  height: 30%;
+  border-radius: 50%;
+  background: rgba(255, 251, 238, 0.72);
+  filter: blur(13px);
+  animation: sticker-halo-breathe 4.8s ease-in-out infinite;
 }
 
-.painted-eye {
-  animation: none;
-}
-
-.painted-eye__dot {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: painted-blink 6.4s infinite;
-}
-
-.painted-eye--right .painted-eye__dot {
-  animation-delay: 70ms;
-}
-
-.painted-eye__closed {
-  display: none;
-}
-
-.painted-mood--happy .painted-eye__idle,
-.painted-mood--eating .painted-eye__idle {
-  display: none;
-  animation: none;
-}
-
-.painted-mood--happy .painted-eye__closed,
-.painted-mood--eating .painted-eye__closed {
+.painted-animal__image {
+  position: absolute;
+  inset: 0;
   display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  transform-origin: 50% 92%;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  will-change: transform;
 }
 
-.painted-stage-hit:active .painted-eye__idle {
+.home-screen .home-hero__stage .painted-animal__image {
+  scale: 1.06;
+}
+
+.detail-screen .detail-model .painted-animal__image {
+  scale: 1.02;
+}
+
+.preset-card {
+  min-height: 106px;
+  grid-template-columns: 68px 1fr;
+}
+
+.preset-orb,
+.preset-thumb {
+  width: 64px;
+  height: 68px;
+  border-radius: 38% 38% 34% 34%;
+}
+
+.preset-thumb .painted-animal {
+  width: 92px;
+  height: 96px;
+  transform: translate(-14px, -12px);
+}
+
+.painted-animal__spark {
+  position: absolute;
+  z-index: 2;
+  top: 21%;
+  right: 12%;
+  width: 18px;
+  height: 18px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.painted-animal__spark::before,
+.painted-animal__spark::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15px;
+  height: 2px;
+  border-radius: 2px;
+  background: #d8a85f;
+  content: "";
+  transform: translate(-50%, -50%);
+}
+
+.painted-animal__spark::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.painted-animal[data-motion="bob"] .painted-animal__image {
+  animation: sticker-image-bob 4.2s ease-in-out infinite;
+}
+
+.painted-animal[data-motion="sway"] .painted-animal__image {
+  animation: sticker-image-sway 4.8s ease-in-out infinite;
+}
+
+.painted-animal[data-motion="munch"] .painted-animal__image {
+  animation: sticker-image-munch 3.6s ease-in-out infinite;
+}
+
+.painted-animal[data-motion="sleep"] .painted-animal__image {
+  animation: sticker-image-sleep 5.8s ease-in-out infinite;
+}
+
+.painted-animal[data-motion="hop"] .painted-animal__image {
+  animation: sticker-image-hop 3.8s cubic-bezier(0.35, 0, 0.2, 1) infinite;
+}
+
+.painted-animal[data-motion="peek"] .painted-animal__image {
+  animation: sticker-image-peek 5s ease-in-out infinite;
+}
+
+.painted-animal[data-motion="sip"] .painted-animal__image {
+  animation: sticker-image-sip 4.4s ease-in-out infinite;
+}
+
+.painted-animal[data-motion="nod"] .painted-animal__image {
+  animation: sticker-image-nod 4.6s ease-in-out infinite;
+}
+
+.painted-animal[data-motion="bob"] .painted-animal__spark,
+.painted-animal[data-motion="hop"] .painted-animal__spark,
+.painted-animal[data-motion="peek"] .painted-animal__spark {
+  animation: sticker-motion-spark 3.4s ease-in-out infinite;
+}
+
+.painted-animal[data-motion="munch"] .painted-animal__halo {
+  background: rgba(244, 202, 166, 0.2);
+}
+
+.painted-animal[data-motion="sleep"] .painted-animal__halo {
+  background: rgba(210, 224, 217, 0.32);
+  animation-duration: 6.4s;
+}
+
+.painted-animal.is-compact .painted-animal__halo,
+.painted-animal.is-compact .painted-animal__spark {
   display: none;
 }
 
-.painted-stage-hit:active .painted-eye__closed {
-  display: block;
+.painted-stage-hit:active .painted-animal__image {
+  animation: sticker-touch-pop 520ms cubic-bezier(0.2, 0.85, 0.25, 1.15) both;
 }
 
-.painted-mouth--happy,
-.painted-mouth--eating {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: sticker-mouth-pop 380ms cubic-bezier(0.2, 0.85, 0.25, 1.2) both;
+@keyframes sticker-image-bob {
+  0%, 100% { transform: translateY(0) rotate(-0.35deg); }
+  50% { transform: translateY(-5px) rotate(0.55deg); }
 }
 
-.painted-brows {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: sticker-brow-float 4.8s ease-in-out infinite;
+@keyframes sticker-image-sway {
+  0%, 100% { transform: rotate(-1.4deg) translateY(0); }
+  50% { transform: rotate(1.4deg) translateY(-2px); }
 }
 
-.painted-wink-spark,
-.painted-eye-spark {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: painted-twinkle 2.6s ease-in-out infinite alternate;
+@keyframes sticker-image-munch {
+  0%, 16%, 100% { transform: translateY(0) rotate(0); }
+  30% { transform: translateY(-2px) rotate(-1deg) scale(1.015); }
+  44% { transform: translateY(0) rotate(0.7deg) scale(0.995); }
+  58% { transform: translateY(-1px) rotate(-0.3deg) scale(1.01); }
 }
 
-.painted-tail {
-  transform-box: view-box;
-  transform-origin: 248px 344px;
-  animation: painted-tail 5.4s ease-in-out infinite;
+@keyframes sticker-image-sleep {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-2px) scale(1.012, 0.992); }
 }
 
-.painted-tail--short {
-  transform-origin: 260px 354px;
+@keyframes sticker-image-hop {
+  0%, 62%, 100% { transform: translateY(0) scale(1); }
+  10% { transform: translateY(1px) scale(1.015, 0.985); }
+  24% { transform: translateY(-9px) scale(0.99, 1.015); }
+  38% { transform: translateY(0) scale(1.012, 0.99); }
 }
 
-.doodle-accessory {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: sticker-prop-bob 3.7s ease-in-out infinite;
+@keyframes sticker-image-peek {
+  0%, 100% { transform: translateX(0) rotate(-0.6deg); }
+  35% { transform: translateX(-3px) rotate(-2deg); }
+  60% { transform: translateX(3px) rotate(1.4deg); }
 }
 
-.sticker-head-decor {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: sticker-decor-tilt 4.8s ease-in-out infinite;
+@keyframes sticker-image-sip {
+  0%, 20%, 100% { transform: translateY(0) rotate(0); }
+  38%, 58% { transform: translateY(-2px) rotate(-1.3deg); }
+  72% { transform: translateY(0) rotate(0.5deg); }
 }
 
-.painted-doodles {
-  animation: painted-twinkle 3.2s ease-in-out infinite alternate;
+@keyframes sticker-image-nod {
+  0%, 58%, 100% { transform: translateY(0) rotate(0); }
+  66% { transform: translateY(2px) rotate(0.8deg); }
+  74% { transform: translateY(-1px) rotate(-0.5deg); }
 }
 
-.painted-doodles .painted-note {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: sticker-note-float 4.2s ease-in-out infinite;
+@keyframes sticker-touch-pop {
+  0% { transform: translateY(0) scale(1); }
+  38% { transform: translateY(-12px) scale(1.04) rotate(-2deg); }
+  68% { transform: translateY(0) scale(0.985, 1.015) rotate(1deg); }
+  100% { transform: translateY(0) scale(1); }
 }
 
-@keyframes sticker-mouth-pop {
-  0% { scale: 0.6; opacity: 0; }
-  70% { scale: 1.08; opacity: 1; }
-  100% { scale: 1; opacity: 1; }
+@keyframes sticker-halo-breathe {
+  0%, 100% { opacity: 0.58; transform: scaleX(0.92); }
+  50% { opacity: 0.9; transform: scaleX(1.04); }
 }
 
-@keyframes sticker-prop-bob {
-  0%, 100% { translate: 0 0; rotate: 0deg; }
-  50% { translate: 0 -2px; rotate: 0.7deg; }
-}
-
-@keyframes sticker-decor-tilt {
-  0%, 100% { rotate: -1deg; }
-  50% { rotate: 2deg; }
-}
-
-@keyframes sticker-note-float {
-  0%, 100% { translate: 0 0; }
-  50% { translate: 2px -5px; }
-}
-
-@keyframes sticker-brow-float {
-  0%, 100% { translate: 0 0; }
-  48% { translate: 0 -0.8px; }
-  62% { translate: 0 0.3px; }
+@keyframes sticker-motion-spark {
+  0%, 58%, 100% { opacity: 0; transform: scale(0.45) rotate(0deg); }
+  22%, 42% { opacity: 0.72; transform: scale(1) rotate(18deg); }
 }
 
 @keyframes artwork-local-bounce {

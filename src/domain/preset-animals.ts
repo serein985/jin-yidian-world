@@ -9,12 +9,25 @@ export const PRESET_ANIMAL_IDS = [
   "rabbit",
   "fox",
   "penguin",
+  "bear-pie",
+  "mirror-rabbit",
+  "pig",
+  "book-dog",
 ] as const;
 
 export type PresetAnimalId = (typeof PRESET_ANIMAL_IDS)[number];
 export type EarStyle = "round" | "pointed" | "long" | "small" | "floppy";
 export type TailStyle = "short" | "ringed" | "tiger" | "fluffy" | "fox" | "penguin";
 export type PatternStyle = "none" | "panda" | "tiger" | "mask";
+export type StickerMotion =
+  | "bob"
+  | "sway"
+  | "munch"
+  | "sleep"
+  | "hop"
+  | "peek"
+  | "sip"
+  | "nod";
 export type TouchEffect =
   | "bounce"
   | "shake"
@@ -30,6 +43,7 @@ export interface PresetAnimalDefinition {
   couponOfferId: CouponOfferId;
   tagline: string;
   habitat: string;
+  artMotion: StickerMotion;
   palette: {
     primary: string;
     secondary: string;
@@ -53,37 +67,39 @@ export const PRESET_ANIMALS: PresetAnimalDefinition[] = [
   {
     id: "panda",
     name: "糯糯",
-    species: "大熊猫",
+    species: "小白熊",
     threshold: 35,
     couponOfferId: "merch",
-    tagline: "慢吞吞地靠近，也想被认真看见。",
-    habitat: "雾竹坡",
+    tagline: "抱着一朵小花，慢吞吞地等你来。",
+    habitat: "花绒坡",
+    artMotion: "bob",
     palette: {
-      primary: "#f4eee1",
-      secondary: "#252c27",
-      accent: "#c99588",
-      inner: "#d8b2a8",
-      eye: "#4c3229",
+      primary: "#f5eee3",
+      secondary: "#83b9c6",
+      accent: "#e99b91",
+      inner: "#f1b9b1",
+      eye: "#4b3832",
     },
     model: {
-      bodyScale: [1.1, 1.18, 0.9],
-      headScale: [1.12, 1, 1],
-      snoutScale: [0.72, 0.48, 0.5],
+      bodyScale: [1.04, 1.08, 0.9],
+      headScale: [1.1, 0.98, 1],
+      snoutScale: [0.62, 0.4, 0.46],
       earStyle: "round",
       tailStyle: "short",
-      pattern: "panda",
+      pattern: "none",
     },
-    foods: ["嫩竹笋", "苹果片", "竹叶小卷"],
-    responses: ["耳朵轻轻动了一下。", "糯糯把爪子搭了过来。", "这里的竹子很香。"],
+    foods: ["蜂蜜饼干", "苹果片", "小蓝莓"],
+    responses: ["糯糯把小花举高了一点。", "圆耳朵轻轻动了一下。", "今天也想和你待一会儿。"],
   },
   {
     id: "red-panda",
     name: "栗栗",
-    species: "小熊猫",
+    species: "小橘猫",
     threshold: 30,
     couponOfferId: "merch",
-    tagline: "尾巴蓬松，好奇心比脚步更快。",
-    habitat: "树枝转角",
+    tagline: "捧着甜甜圈，好奇心比脚步更快。",
+    habitat: "甜点街角",
+    artMotion: "munch",
     palette: {
       primary: "#b96845",
       secondary: "#f1d5bd",
@@ -99,8 +115,8 @@ export const PRESET_ANIMALS: PresetAnimalDefinition[] = [
       tailStyle: "ringed",
       pattern: "mask",
     },
-    foods: ["嫩竹笋", "苹果片", "小浆果"],
-    responses: ["栗栗把尾巴绕了过来。", "耳朵轻轻抖了一下。", "再慢一点，我听着呢。"],
+    foods: ["小鱼干", "奶油饼干", "草莓"],
+    responses: ["栗栗把甜甜圈抱得更紧了。", "尾巴开心地翘了起来。", "再靠近一点，我想听。"],
   },
   {
     id: "tiger",
@@ -108,8 +124,9 @@ export const PRESET_ANIMALS: PresetAnimalDefinition[] = [
     species: "小老虎",
     threshold: 50,
     couponOfferId: "dining",
-    tagline: "把爪子收好，只用脑袋轻轻碰你。",
+    tagline: "抱着小饼干，也会认真听你说话。",
     habitat: "暖石台",
+    artMotion: "hop",
     palette: {
       primary: "#dca450",
       secondary: "#60412b",
@@ -125,8 +142,8 @@ export const PRESET_ANIMALS: PresetAnimalDefinition[] = [
       tailStyle: "tiger",
       pattern: "tiger",
     },
-    foods: ["鸡肉块", "牛肉粒", "营养肉泥"],
-    responses: ["低低的呼噜声冒了出来。", "阿呜把脑袋偏了过来。", "只靠近一点点。"],
+    foods: ["鸡肉块", "牛肉粒", "小饼干"],
+    responses: ["阿呜咬了一口小饼干。", "脑袋轻轻偏了过来。", "只靠近一点点。"],
   },
   {
     id: "sheep",
@@ -136,6 +153,7 @@ export const PRESET_ANIMALS: PresetAnimalDefinition[] = [
     couponOfferId: "experience",
     tagline: "羊毛软软的，今天也愿意靠近你。",
     habitat: "云朵草坡",
+    artMotion: "sway",
     palette: {
       primary: "#f1ead9",
       secondary: "#e4b3aa",
@@ -160,8 +178,9 @@ export const PRESET_ANIMALS: PresetAnimalDefinition[] = [
     species: "水豚",
     threshold: 25,
     couponOfferId: "dining",
-    tagline: "世界很吵，泡芙只想安静地泡一会儿。",
-    habitat: "温水湾",
+    tagline: "软软地打个哈欠，就能陪你很久。",
+    habitat: "午后软垫",
+    artMotion: "sleep",
     palette: {
       primary: "#a9825c",
       secondary: "#d8b88e",
@@ -177,8 +196,8 @@ export const PRESET_ANIMALS: PresetAnimalDefinition[] = [
       tailStyle: "short",
       pattern: "none",
     },
-    foods: ["嫩草束", "南瓜片", "苹果块"],
-    responses: ["泡芙眯起眼睛，呼吸慢了下来。", "头顶的小耳朵动了动。", "今天的温水刚刚好。"],
+    foods: ["小肉丸", "南瓜片", "酸奶饼干"],
+    responses: ["泡芙眯起眼睛，呼吸慢了下来。", "蓝色小领巾轻轻晃动。", "今天的软垫刚刚好。"],
   },
   {
     id: "rabbit",
@@ -186,8 +205,9 @@ export const PRESET_ANIMALS: PresetAnimalDefinition[] = [
     species: "兔子",
     threshold: 20,
     couponOfferId: "photo",
-    tagline: "长耳朵先听见你，再慢慢跳过来。",
+    tagline: "抱着奶茶先听见你，再慢慢跳过来。",
     habitat: "月光草径",
+    artMotion: "sip",
     palette: {
       primary: "#f5f0e8",
       secondary: "#d7c8b6",
@@ -209,11 +229,12 @@ export const PRESET_ANIMALS: PresetAnimalDefinition[] = [
   {
     id: "fox",
     name: "小焰",
-    species: "狐狸",
+    species: "小鹿",
     threshold: 45,
     couponOfferId: "drink",
-    tagline: "尾巴像一簇火，靠近时却很温柔。",
+    tagline: "围巾暖乎乎的，靠近时却很温柔。",
     habitat: "赤叶林缘",
+    artMotion: "peek",
     palette: {
       primary: "#c56b3f",
       secondary: "#f2dfc9",
@@ -229,17 +250,18 @@ export const PRESET_ANIMALS: PresetAnimalDefinition[] = [
       tailStyle: "fox",
       pattern: "none",
     },
-    foods: ["鸡肉条", "南瓜块", "蓝莓"],
-    responses: ["小焰的尾巴轻轻扫过地面。", "狐狸耳朵向后收了收。", "今天也愿意靠近你。"],
+    foods: ["苹果块", "胡萝卜条", "燕麦饼干"],
+    responses: ["小焰把杯子捧得更稳了。", "鹿角轻轻蹭了蹭空气。", "今天也愿意靠近你。"],
   },
   {
     id: "penguin",
     name: "豆丁",
-    species: "企鹅",
+    species: "小鼠",
     threshold: 30,
     couponOfferId: "experience",
-    tagline: "走路摇摇晃晃，靠近你时却很认真。",
-    habitat: "极光浅湾",
+    tagline: "抱着饼干打瞌睡，也会为你醒来。",
+    habitat: "饼干小屋",
+    artMotion: "nod",
     palette: {
       primary: "#293b46",
       secondary: "#f3eee1",
@@ -255,8 +277,116 @@ export const PRESET_ANIMALS: PresetAnimalDefinition[] = [
       tailStyle: "penguin",
       pattern: "none",
     },
-    foods: ["小鱼", "虾仁", "饲养员冰块"],
-    responses: ["豆丁左右晃了晃。", "圆圆的肚子贴近了一点。", "鳍状小手拍了拍你。"],
+    foods: ["奶酪粒", "小米饼", "苹果片"],
+    responses: ["豆丁抱着饼干点了点头。", "小耳朵抖了一下。", "醒来第一眼就看见你了。"],
+  },
+  {
+    id: "bear-pie",
+    name: "团团",
+    species: "小棕熊",
+    threshold: 38,
+    couponOfferId: "merch",
+    tagline: "围巾和小点心都准备好了，就差你。",
+    habitat: "松果木屋",
+    artMotion: "bob",
+    palette: {
+      primary: "#7b5748",
+      secondary: "#d85c4f",
+      accent: "#d9867b",
+      inner: "#e9b3a7",
+      eye: "#412d27",
+    },
+    model: {
+      bodyScale: [1.08, 1.05, 0.9],
+      headScale: [1.08, 1, 1],
+      snoutScale: [0.68, 0.44, 0.5],
+      earStyle: "round",
+      tailStyle: "short",
+      pattern: "none",
+    },
+    foods: ["蜂蜜面包", "蓝莓", "小饼干"],
+    responses: ["团团把红围巾整理好了。", "小雪花落在它的鼻尖上。", "它把点心分给你一半。"],
+  },
+  {
+    id: "mirror-rabbit",
+    name: "雪球",
+    species: "小白兔",
+    threshold: 22,
+    couponOfferId: "photo",
+    tagline: "把最精神的一面留给你，也留给自己。",
+    habitat: "晨光镜台",
+    artMotion: "peek",
+    palette: {
+      primary: "#f6f0e5",
+      secondary: "#f0c84f",
+      accent: "#e5a6a0",
+      inner: "#efb8b1",
+      eye: "#4b3732",
+    },
+    model: {
+      bodyScale: [0.92, 1.02, 0.86],
+      headScale: [0.92, 0.9, 0.92],
+      snoutScale: [0.56, 0.36, 0.42],
+      earStyle: "long",
+      tailStyle: "short",
+      pattern: "none",
+    },
+    foods: ["胡萝卜片", "苜蓿草", "苹果枝"],
+    responses: ["雪球举起小镜子照了照。", "长耳朵开心地竖了起来。", "它把最好看的角度留给你。"],
+  },
+  {
+    id: "pig",
+    name: "桃桃",
+    species: "小猪",
+    threshold: 28,
+    couponOfferId: "drink",
+    tagline: "小小一杯牛奶，也会喝得很认真。",
+    habitat: "草莓暖房",
+    artMotion: "sip",
+    palette: {
+      primary: "#eeaeb5",
+      secondary: "#e88d9b",
+      accent: "#dc7c86",
+      inner: "#f1b9c0",
+      eye: "#4f3833",
+    },
+    model: {
+      bodyScale: [1.02, 0.98, 0.92],
+      headScale: [0.98, 0.92, 0.94],
+      snoutScale: [0.64, 0.42, 0.48],
+      earStyle: "floppy",
+      tailStyle: "short",
+      pattern: "none",
+    },
+    foods: ["苹果块", "南瓜泥", "小米饼"],
+    responses: ["桃桃把牛奶杯举高了一点。", "粉色蝴蝶结晃了晃。", "它认真喝完了最后一口。"],
+  },
+  {
+    id: "book-dog",
+    name: "阿卷",
+    species: "小狗",
+    threshold: 42,
+    couponOfferId: "experience",
+    tagline: "戴好眼镜，翻到写着你的那一页。",
+    habitat: "书页花园",
+    artMotion: "nod",
+    palette: {
+      primary: "#e7c39a",
+      secondary: "#8bb39b",
+      accent: "#d8847b",
+      inner: "#e7aaa1",
+      eye: "#4c3932",
+    },
+    model: {
+      bodyScale: [1.02, 0.98, 0.88],
+      headScale: [1.04, 0.88, 0.96],
+      snoutScale: [0.64, 0.4, 0.48],
+      earStyle: "floppy",
+      tailStyle: "short",
+      pattern: "none",
+    },
+    foods: ["鸡肉干", "红薯块", "小饼干"],
+    responses: ["阿卷把书翻到了下一页。", "圆眼镜微微反光。", "它把今天的故事讲给你听。"],
   },
 ];
 

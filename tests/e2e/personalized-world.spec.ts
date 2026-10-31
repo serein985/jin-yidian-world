@@ -52,6 +52,21 @@ test("complete personalized animal and calendar flow", async ({ page }) => {
     path: "work/personalized-portrait-home.png",
   });
   expect(portrait.byteLength).toBeGreaterThan(10_000);
+  const heroArt = await page.locator(".home-hero__stage img").evaluate((image) => ({
+    loaded: (image as HTMLImageElement).complete &&
+      (image as HTMLImageElement).naturalWidth > 0,
+    animation: getComputedStyle(image).animationName,
+  }));
+  expect(heroArt.loaded).toBe(true);
+  expect(heroArt.animation).not.toBe("none");
+  const firstTransform = await page
+    .locator(".home-hero__stage img")
+    .evaluate((image) => getComputedStyle(image).transform);
+  await page.waitForTimeout(420);
+  const secondTransform = await page
+    .locator(".home-hero__stage img")
+    .evaluate((image) => getComputedStyle(image).transform);
+  expect(secondTransform).not.toBe(firstTransform);
 
   await page.getByRole("button", { name: "进入栗栗的世界" }).click();
   await page.waitForTimeout(300);

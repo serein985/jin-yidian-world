@@ -186,7 +186,7 @@ function Ear({
       <mesh scale={style === "small" ? [0.2, 0.2, 0.15] : [0.34, 0.34, 0.22]}>
         <sphereGeometry args={[1, 32, 24]} />
         <PlushMaterial
-          color={config.presetId === "panda" ? config.secondary : config.primary}
+          color={config.pattern === "panda" ? config.secondary : config.primary}
         />
       </mesh>
       <mesh position={[0, 0, 0.16]} scale={style === "small" ? [0.09, 0.09, 0.03] : [0.15, 0.15, 0.04]}>
@@ -352,8 +352,8 @@ export function PlushAnimal({
     onTouchRegion?.(region);
   }
 
-  const isSheep = config.presetId === "sheep";
-  const isPenguin = config.presetId === "penguin";
+  const isSheep = config.tailStyle === "fluffy";
+  const isPenguin = config.tailStyle === "penguin";
 
   return (
     <group ref={root} position={[0, 0.1, 0]}>
@@ -394,19 +394,19 @@ export function PlushAnimal({
         )}
         <mesh position={[-0.58, 0.28, 0.53]} rotation={[0.1, 0, 0.35]} scale={[0.28, 0.5, 0.26]}>
           <capsuleGeometry args={[0.5, 1, 12, 20]} />
-          <PlushMaterial color={config.presetId === "panda" ? config.secondary : config.primary} />
+          <PlushMaterial color={config.pattern === "panda" ? config.secondary : config.primary} />
         </mesh>
         <mesh position={[0.58, 0.28, 0.53]} rotation={[0.1, 0, -0.35]} scale={[0.28, 0.5, 0.26]}>
           <capsuleGeometry args={[0.5, 1, 12, 20]} />
-          <PlushMaterial color={config.presetId === "panda" ? config.secondary : config.primary} />
+          <PlushMaterial color={config.pattern === "panda" ? config.secondary : config.primary} />
         </mesh>
         <mesh position={[-0.45, -0.55, 0.38]} scale={[0.32, 0.22, 0.38]}>
           <sphereGeometry args={[1, 28, 20]} />
-          <PlushMaterial color={config.presetId === "panda" ? config.secondary : config.primary} />
+          <PlushMaterial color={config.pattern === "panda" ? config.secondary : config.primary} />
         </mesh>
         <mesh position={[0.45, -0.55, 0.38]} scale={[0.32, 0.22, 0.38]}>
           <sphereGeometry args={[1, 28, 20]} />
-          <PlushMaterial color={config.presetId === "panda" ? config.secondary : config.primary} />
+          <PlushMaterial color={config.pattern === "panda" ? config.secondary : config.primary} />
         </mesh>
       </group>
 

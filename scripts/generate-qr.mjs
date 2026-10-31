@@ -294,22 +294,26 @@ try {
                 <p class="brand-caption">我的动物世界</p>
               </div>
             </div>
-            <span class="code">八种预设 · 自己画的也可以住进来</span>
+            <span class="code">十二种预设 · 自己画的也可以住进来</span>
           </div>
           <section class="hero-copy">
             <p class="eyebrow">选择、创作、陪伴、留下记录</p>
             <h1>把喜欢的动物，<br />放进今天的世界。</h1>
-            <p class="subtitle">从八种动物中选择伙伴，或上传自己的画作，设置触摸点和动作，让它成为只属于你的动物。</p>
+            <p class="subtitle">从十二种贴纸伙伴中选择，或上传自己的画作，设置触摸点和动作，让它成为只属于你的动物。</p>
           </section>
           <div class="animal-row">
-            <div class="animal animal--red"><i>糯</i><span><strong>糯糯</strong><small>大熊猫</small></span></div>
-            <div class="animal animal--red"><i>栗</i><span><strong>栗栗</strong><small>小熊猫</small></span></div>
+            <div class="animal animal--red"><i>糯</i><span><strong>糯糯</strong><small>小白熊</small></span></div>
+            <div class="animal animal--red"><i>栗</i><span><strong>栗栗</strong><small>小橘猫</small></span></div>
             <div class="animal animal--tiger"><i>呜</i><span><strong>阿呜</strong><small>小老虎</small></span></div>
             <div class="animal animal--sheep"><i>棉</i><span><strong>棉棉</strong><small>小羊</small></span></div>
-            <div class="animal animal--red"><i>泡</i><span><strong>泡芙</strong><small>水豚</small></span></div>
+            <div class="animal animal--red"><i>泡</i><span><strong>泡芙</strong><small>小狗</small></span></div>
             <div class="animal animal--sheep"><i>米</i><span><strong>米粒</strong><small>兔子</small></span></div>
-            <div class="animal animal--tiger"><i>焰</i><span><strong>小焰</strong><small>狐狸</small></span></div>
-            <div class="animal animal--red"><i>豆</i><span><strong>豆丁</strong><small>企鹅</small></span></div>
+            <div class="animal animal--tiger"><i>焰</i><span><strong>小焰</strong><small>小鹿</small></span></div>
+            <div class="animal animal--red"><i>豆</i><span><strong>豆丁</strong><small>小鼠</small></span></div>
+            <div class="animal animal--red"><i>团</i><span><strong>团团</strong><small>小棕熊</small></span></div>
+            <div class="animal animal--sheep"><i>雪</i><span><strong>雪球</strong><small>小白兔</small></span></div>
+            <div class="animal animal--red"><i>桃</i><span><strong>桃桃</strong><small>小猪</small></span></div>
+            <div class="animal animal--sheep"><i>卷</i><span><strong>阿卷</strong><small>小狗</small></span></div>
           </div>
           <section class="scan-panel">
             <div class="qr">${qrSvg}</div>

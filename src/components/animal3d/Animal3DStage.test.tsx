@@ -13,7 +13,7 @@ describe("Animal3DStage", () => {
     );
 
     expect(
-      screen.getByRole("img", { name: "小熊猫栗栗静态形象" }),
+      screen.getByRole("img", { name: "小橘猫栗栗静态形象" }),
     ).toBeInTheDocument();
     expect(screen.getByText("栗栗")).toBeInTheDocument();
   });

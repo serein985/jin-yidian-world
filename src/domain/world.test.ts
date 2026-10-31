@@ -21,11 +21,11 @@ const evening = new Date(2026, 9, 31, 18, 0, 0);
 const tomorrow = new Date(2026, 10, 1, 9, 0, 0);
 
 describe("preset animals", () => {
-  it("defines all eight presets with unique ids and varied thresholds", () => {
-    expect(PRESET_ANIMALS).toHaveLength(8);
-    expect(new Set(PRESET_ANIMALS.map((animal) => animal.id)).size).toBe(8);
+  it("defines all twelve presets with unique ids and varied thresholds", () => {
+    expect(PRESET_ANIMALS).toHaveLength(12);
+    expect(new Set(PRESET_ANIMALS.map((animal) => animal.id)).size).toBe(12);
     expect(PRESET_ANIMALS.map((animal) => animal.threshold)).toEqual([
-      35, 30, 50, 40, 25, 20, 45, 30,
+      35, 30, 50, 40, 25, 20, 45, 30, 38, 22, 28, 42,
     ]);
     expect(PRESET_ANIMALS_BY_ID.panda.name).toBe("糯糯");
   });

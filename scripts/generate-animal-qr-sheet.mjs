@@ -1,4 +1,4 @@
-import { mkdir } from "node:fs/promises";
+import { mkdir, readFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { resolve } from "node:path";
 
@@ -19,18 +19,24 @@ if (baseUrl.protocol !== "http:" && baseUrl.protocol !== "https:") {
 }
 
 const animals = [
-  ["panda", "糯糯", "大熊猫", "#f1eadf", "#303a31"],
-  ["red-panda", "栗栗", "小熊猫", "#e7c5b4", "#794c39"],
+  ["panda", "糯糯", "小白熊", "#f1eadf", "#303a31"],
+  ["red-panda", "栗栗", "小橘猫", "#e7c5b4", "#794c39"],
   ["tiger", "阿呜", "小老虎", "#ead29d", "#76542e"],
   ["sheep", "棉棉", "小羊", "#efdcd6", "#815d57"],
-  ["capybara", "泡芙", "水豚", "#d7c0a1", "#6c513b"],
+  ["capybara", "泡芙", "小狗", "#d7c0a1", "#6c513b"],
   ["rabbit", "米粒", "兔子", "#eee9e0", "#66544b"],
-  ["fox", "小焰", "狐狸", "#e1b092", "#7d4835"],
-  ["penguin", "豆丁", "企鹅", "#c9d5d8", "#354c54"],
+  ["fox", "小焰", "小鹿", "#e1b092", "#7d4835"],
+  ["penguin", "豆丁", "小鼠", "#c9d5d8", "#354c54"],
+  ["bear-pie", "团团", "小棕熊", "#d4b7a0", "#624638"],
+  ["mirror-rabbit", "雪球", "小白兔", "#efe8dc", "#655149"],
+  ["pig", "桃桃", "小猪", "#efcbd2", "#7b4d55"],
+  ["book-dog", "阿卷", "小狗", "#ddc49f", "#62513d"],
 ];
 
 const cards = await Promise.all(
   animals.map(async ([id, name, species, background, ink]) => {
+    const sticker = await readFile(resolve("public/stickers", `${id}.png`));
+    const stickerUrl = `data:image/png;base64,${sticker.toString("base64")}`;
     const url = new URL(baseUrl);
     url.search = "";
     url.searchParams.set("animal", `preset-${id}`);
@@ -45,7 +51,7 @@ const cards = await Promise.all(
     return `
       <article class="animal-card" style="--animal-bg:${background};--animal-ink:${ink}">
         <div class="animal-label">
-          <span>${name.slice(0, 1)}</span>
+          <span><img src="${stickerUrl}" alt="" /></span>
           <div><strong>${name}</strong><small>${species}</small></div>
         </div>
         <div class="qr">${svg}</div>
@@ -122,15 +128,19 @@ try {
           }
           .animal-label > span {
             display: grid;
-            width: 47px;
-            height: 47px;
+            width: 54px;
+            height: 54px;
             place-items: center;
             border-radius: 50%;
             color: var(--animal-ink);
             background: var(--animal-bg);
-            font-family: "STSong", "Songti SC", serif;
-            font-size: 20px;
-            font-weight: 700;
+            overflow: hidden;
+          }
+          .animal-label img {
+            display: block;
+            width: 62px;
+            height: 62px;
+            object-fit: contain;
           }
           .animal-label strong,
           .animal-label small {
@@ -180,7 +190,7 @@ try {
               <p class="eyebrow">PARK ANIMAL QR · NEARER</p>
               <h1>扫描动物牌，直接去见它。</h1>
             </div>
-            <p>八个园区二维码对应八个独立详情页。首次访问可先建立本地身份，之后扫码会直接进入对应动物。</p>
+            <p>十二个园区二维码对应十二个独立详情页。首次访问可先建立本地身份，之后扫码会直接进入对应动物。</p>
           </header>
           <section class="grid">${cards.join("")}</section>
           <footer>
