@@ -54,6 +54,12 @@ test("complete personalized animal and calendar flow", async ({ page }) => {
   expect(portrait.byteLength).toBeGreaterThan(10_000);
 
   await page.getByRole("button", { name: "进入栗栗的世界" }).click();
+  await page.waitForTimeout(300);
+  await page.screenshot({ path: "work/sticker-detail-screen.png" });
+  const detailIllustration = await page.locator(".detail-model").screenshot({
+    path: "work/sticker-detail-red-panda.png",
+  });
+  expect(detailIllustration.byteLength).toBeGreaterThan(20_000);
   await page.getByRole("button", { name: "3D", exact: true }).click();
   await expect(page.locator(".animal-3d-stage canvas")).toBeVisible();
   await page.waitForTimeout(1200);
@@ -64,6 +70,10 @@ test("complete personalized animal and calendar flow", async ({ page }) => {
   await page.getByRole("button", { name: "返回" }).click();
 
   await page.getByRole("button", { name: "添加动物" }).click();
+  await page.waitForTimeout(260);
+  await page.screenshot({
+    path: "work/sticker-library-390.png",
+  });
   await page.getByRole("button", { name: "添加糯糯" }).click();
   await page.getByRole("button", { name: "关闭动物库" }).click();
   await expect(page.getByRole("button", { name: "切换到糯糯" })).toBeVisible();

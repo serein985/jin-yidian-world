@@ -3180,6 +3180,481 @@ textarea {
   }
 }
 
+/* Hand-drawn sticker art direction */
+
+.home-screen,
+.detail-screen {
+  color: #41352f;
+  background: #f4ecdd;
+}
+
+.home-screen .world-atmosphere,
+.detail-screen .world-atmosphere {
+  background:
+    linear-gradient(164deg, rgba(255, 252, 242, 0.9), rgba(247, 235, 216, 0.94) 52%, rgba(232, 221, 203, 0.96)),
+    #f4ecdd;
+}
+
+.home-screen .world-atmosphere::before,
+.detail-screen .world-atmosphere::before {
+  top: -9%;
+  left: 8%;
+  width: 76%;
+  height: 31%;
+  border-radius: 45% 55% 58% 42%;
+  background: rgba(246, 193, 170, 0.18);
+  filter: blur(24px);
+  transform: rotate(-9deg);
+}
+
+.home-screen .world-atmosphere::after,
+.detail-screen .world-atmosphere::after {
+  right: -22%;
+  bottom: 9%;
+  width: 58%;
+  height: 38%;
+  border-radius: 50%;
+  background: rgba(150, 181, 155, 0.14);
+  filter: blur(26px);
+}
+
+.home-screen .world-light,
+.detail-screen .world-light {
+  top: 2%;
+  left: 13%;
+  width: 64%;
+  height: 31%;
+  border-radius: 43% 57% 50% 50%;
+  background: rgba(255, 248, 221, 0.36);
+  filter: blur(24px);
+  transform: rotate(-18deg);
+}
+
+.home-screen .world-mist,
+.detail-screen .world-mist {
+  right: -10%;
+  bottom: 21%;
+  width: 52%;
+  height: 24%;
+  background: rgba(173, 198, 173, 0.14);
+  filter: blur(24px);
+}
+
+.home-screen .world-grain,
+.detail-screen .world-grain {
+  opacity: 0.18;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(91, 72, 58, 0.36) 0.55px, transparent 0.7px),
+    radial-gradient(circle at 74% 66%, rgba(255, 255, 255, 0.72) 0.75px, transparent 0.9px);
+  background-size: 7px 8px, 12px 13px;
+  mix-blend-mode: multiply;
+}
+
+.home-screen .world-header,
+.detail-screen .world-header {
+  color: #493a33;
+}
+
+.home-screen .world-header__identity span,
+.detail-screen .world-header__identity span {
+  color: rgba(75, 59, 50, 0.62);
+}
+
+.home-screen .world-header__actions button,
+.detail-screen .world-header__actions button,
+.detail-screen .header-icon-button {
+  color: #544139;
+  border-color: rgba(90, 69, 58, 0.18);
+  background: rgba(255, 252, 244, 0.74);
+  box-shadow:
+    0 3px 0 rgba(91, 70, 58, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+.home-screen .header-brand-mark::before,
+.detail-screen .header-brand-mark::before {
+  background: #695148;
+}
+
+.home-screen .header-brand-mark i,
+.detail-screen .header-brand-mark i {
+  border-color: #695148;
+}
+
+.home-screen .home-hero {
+  min-height: min(49svh, 445px);
+}
+
+.home-screen .home-hero__copy {
+  max-width: 220px;
+  color: #46352d;
+}
+
+.home-screen .home-hero__copy h1,
+.detail-screen .detail-title h1 {
+  font-family: "Kaiti SC", "STKaiti", "KaiTi", "STSong", "Songti SC", serif;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.home-screen .home-hero__copy > p:last-child {
+  color: #756358;
+}
+
+.home-screen .home-hero__stage {
+  right: -8px;
+  bottom: -4px;
+  left: 16px;
+  overflow: visible;
+  border-radius: 0;
+  filter: none;
+}
+
+.home-screen .home-hero__stage::before {
+  position: absolute;
+  z-index: 0;
+  right: 2%;
+  bottom: 2%;
+  left: 4%;
+  height: 79%;
+  border: 1.5px dashed rgba(102, 77, 62, 0.17);
+  border-radius: 48% 52% 47% 53%;
+  background:
+    radial-gradient(ellipse at 53% 45%, rgba(255, 253, 246, 0.96) 0 43%, rgba(255, 248, 233, 0.48) 68%, transparent 78%);
+  content: "";
+  transform: rotate(-2.5deg);
+  pointer-events: none;
+}
+
+.home-screen .home-hero__stage::after {
+  display: none;
+}
+
+.home-screen .painted-stage-hit {
+  z-index: 1;
+}
+
+.home-screen .painted-animal,
+.detail-screen .detail-model > .painted-stage-hit .painted-animal {
+  filter:
+    drop-shadow(0 8px 0 rgba(91, 66, 52, 0.1))
+    drop-shadow(0 19px 17px rgba(82, 60, 47, 0.13));
+}
+
+.home-screen .hero-status {
+  right: 13px;
+  bottom: 13px;
+  color: #5f4d42;
+}
+
+.home-screen .hero-status > span {
+  border-color: rgba(91, 72, 60, 0.19);
+  background: rgba(255, 252, 243, 0.82);
+  box-shadow: 0 2px 0 rgba(91, 70, 58, 0.07);
+  backdrop-filter: blur(10px);
+}
+
+.home-screen .hero-status__live i {
+  background: #8eaa76;
+  box-shadow: 0 0 0 3px rgba(142, 170, 118, 0.17);
+}
+
+.home-screen .home-controls {
+  border-top: 1.5px dashed rgba(107, 84, 69, 0.24);
+  background: rgba(250, 246, 236, 0.96);
+  box-shadow: 0 -15px 30px rgba(104, 78, 59, 0.09);
+}
+
+.home-screen .home-progress > div:first-child span,
+.detail-screen .detail-progress-heading span {
+  color: #7a685c;
+}
+
+.home-screen .home-progress strong,
+.detail-screen .detail-progress-heading strong {
+  color: #40342e;
+}
+
+.home-screen .home-progress__track,
+.detail-screen .detail-progress-track {
+  background: #ddd3c4;
+}
+
+.home-screen .home-progress__track span,
+.detail-screen .detail-progress-track span {
+  background: linear-gradient(90deg, #6f9473, #d2a968);
+}
+
+.home-screen .animal-rail__item {
+  border-color: #d6cabb;
+  color: #514139;
+  background: rgba(255, 252, 243, 0.76);
+  box-shadow: 0 2px 0 rgba(92, 69, 55, 0.06);
+}
+
+.home-screen .animal-rail__item > span {
+  border: 1px solid #d8cbbc;
+  color: #5e4a40;
+  background: #f7eadc;
+}
+
+.home-screen .animal-rail__item > span .painted-animal {
+  width: 54px;
+  height: 62px;
+  filter: none;
+  transform: translate(-11px, -11px);
+}
+
+.home-screen .animal-rail__item.is-active {
+  border-color: #45624e;
+  color: #fffdf3;
+  background: #45624e;
+  box-shadow: 0 4px 0 rgba(56, 79, 60, 0.14);
+}
+
+.home-screen .animal-rail__item.is-active > span {
+  border-color: rgba(255, 252, 235, 0.48);
+  background: rgba(255, 250, 236, 0.92);
+}
+
+.home-screen .animal-rail__item.is-active i {
+  color: rgba(255, 253, 242, 0.68);
+}
+
+.home-screen .collection-actions > button {
+  border-color: #d4c8b8;
+  color: #5a483f;
+  background: rgba(255, 252, 244, 0.78);
+  box-shadow: 0 2px 0 rgba(91, 70, 58, 0.06);
+}
+
+.home-screen .add-animal-button,
+.detail-screen .primary-large-button {
+  border-color: #375844;
+  background: linear-gradient(180deg, #52745b, #3e6049);
+  box-shadow: 0 4px 0 rgba(45, 70, 51, 0.15);
+}
+
+.detail-screen .detail-stage {
+  min-height: min(60svh, 510px);
+}
+
+.detail-screen .detail-title {
+  color: #48362e;
+}
+
+.detail-screen .detail-title > span {
+  color: #796156;
+}
+
+.detail-screen .detail-model {
+  top: 62px;
+  right: -2px;
+  bottom: 4px;
+  left: -2px;
+  overflow: visible;
+  border-radius: 0;
+}
+
+.detail-screen .detail-model::before {
+  position: absolute;
+  z-index: 0;
+  inset: 4% 1% 2%;
+  border-radius: 48% 52% 45% 55%;
+  background:
+    radial-gradient(ellipse at 50% 47%, rgba(255, 253, 246, 0.9) 0 46%, rgba(255, 248, 233, 0.38) 70%, transparent 81%);
+  content: "";
+  pointer-events: none;
+}
+
+.detail-screen .painted-stage-hit,
+.detail-screen .animal-3d-stage {
+  position: relative;
+  z-index: 1;
+}
+
+.detail-screen .stage-mode-toggle {
+  border-color: rgba(93, 69, 56, 0.2);
+  background: rgba(255, 251, 241, 0.78);
+  box-shadow: 0 3px 0 rgba(90, 67, 53, 0.07);
+}
+
+.detail-screen .stage-mode-toggle button {
+  color: #806b5f;
+}
+
+.detail-screen .stage-mode-toggle button.is-active {
+  color: #fffdf4;
+  background: #47624f;
+}
+
+.detail-screen .detail-speech {
+  right: 15px;
+  bottom: 9px;
+  left: 15px;
+  border: 1.5px dashed rgba(100, 76, 62, 0.34);
+  color: #5b473d;
+  background: rgba(255, 251, 240, 0.93);
+  box-shadow: 3px 5px 0 rgba(100, 76, 62, 0.08);
+  transform: rotate(-0.4deg);
+}
+
+.detail-screen .detail-panel {
+  border-top: 1.5px dashed rgba(107, 84, 69, 0.24);
+  background: rgba(250, 246, 236, 0.96);
+  box-shadow: 0 -15px 30px rgba(104, 78, 59, 0.09);
+}
+
+.detail-screen .detail-progress-heading button,
+.detail-screen .secondary-large-button,
+.detail-screen .record-row {
+  border-color: #d2c5b5;
+  color: #5b493f;
+  background: rgba(255, 252, 244, 0.78);
+  box-shadow: 0 2px 0 rgba(91, 70, 58, 0.06);
+}
+
+.preset-library {
+  color: #44362f;
+  background:
+    radial-gradient(circle at 12% 9%, rgba(241, 192, 174, 0.18), transparent 24%),
+    #f7f0e2;
+  box-shadow: 0 25px 70px rgba(60, 42, 32, 0.34);
+}
+
+.preset-library .sheet-header h2,
+.preset-heading strong,
+.preset-card strong {
+  font-family: "Kaiti SC", "STKaiti", "KaiTi", "STSong", "Songti SC", serif;
+}
+
+.creator-entry {
+  border-color: #d3c5b4;
+  color: #4b3b33;
+  background:
+    linear-gradient(100deg, rgba(242, 225, 204, 0.76), rgba(251, 246, 234, 0.74)),
+    #faf5e8;
+}
+
+.preset-card {
+  border-color: #d4c7b7;
+  color: #4e3d35;
+  background: rgba(255, 252, 244, 0.72);
+  box-shadow: 0 2px 0 rgba(90, 68, 54, 0.05);
+}
+
+.preset-thumb {
+  border: 1px solid #ddcdbd;
+  background:
+    radial-gradient(circle at 50% 48%, #fffaf0, #f3e4d4);
+  box-shadow: 0 4px 0 rgba(87, 65, 51, 0.06);
+}
+
+.preset-thumb .painted-animal {
+  width: 88px;
+  height: 102px;
+  filter: none;
+  transform: translate(-18px, -10px);
+}
+
+.painted-animal {
+  overflow: visible;
+}
+
+.painted-head {
+  translate: var(--painted-look-x) var(--painted-look-y);
+}
+
+.painted-eye {
+  animation: none;
+}
+
+.painted-eye__open {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: painted-blink 6.4s infinite;
+}
+
+.painted-eye--right .painted-eye__open {
+  animation-delay: 70ms;
+}
+
+.painted-eye__closed {
+  display: none;
+}
+
+.painted-mood--happy .painted-eye__open,
+.painted-mood--eating .painted-eye__open {
+  display: none;
+  animation: none;
+}
+
+.painted-mood--happy .painted-eye__closed,
+.painted-mood--eating .painted-eye__closed {
+  display: block;
+}
+
+.painted-mouth--happy,
+.painted-mouth--eating {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sticker-mouth-pop 380ms cubic-bezier(0.2, 0.85, 0.25, 1.2) both;
+}
+
+.painted-tail {
+  transform-box: view-box;
+  transform-origin: 248px 344px;
+  animation: painted-tail 5.4s ease-in-out infinite;
+}
+
+.painted-tail--short {
+  transform-origin: 260px 354px;
+}
+
+.doodle-accessory {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sticker-prop-bob 3.7s ease-in-out infinite;
+}
+
+.sticker-head-decor {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sticker-decor-tilt 4.8s ease-in-out infinite;
+}
+
+.painted-doodles {
+  animation: painted-twinkle 3.2s ease-in-out infinite alternate;
+}
+
+.painted-doodles .painted-note {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sticker-note-float 4.2s ease-in-out infinite;
+}
+
+@keyframes sticker-mouth-pop {
+  0% { scale: 0.6; opacity: 0; }
+  70% { scale: 1.08; opacity: 1; }
+  100% { scale: 1; opacity: 1; }
+}
+
+@keyframes sticker-prop-bob {
+  0%, 100% { translate: 0 0; rotate: 0deg; }
+  50% { translate: 0 -2px; rotate: 0.7deg; }
+}
+
+@keyframes sticker-decor-tilt {
+  0%, 100% { rotate: -1deg; }
+  50% { rotate: 2deg; }
+}
+
+@keyframes sticker-note-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 2px -5px; }
+}
+
 @keyframes artwork-local-bounce {
   0%, 100% { opacity: 0; translate: 0 0; }
   15% { opacity: 1; }
