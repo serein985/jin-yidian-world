@@ -1020,9 +1020,8 @@ textarea {
   overflow: hidden;
   border-radius: inherit;
   background:
-    radial-gradient(ellipse at 68% 24%, rgba(250, 239, 204, 0.65), transparent 28%),
-    radial-gradient(ellipse at 20% 68%, rgba(42, 77, 51, 0.2), transparent 34%),
-    linear-gradient(165deg, #dce5ce, #829b78 52%, #344f3b);
+    radial-gradient(ellipse at 50% 45%, rgba(255, 253, 246, 0.96), rgba(248, 236, 220, 0.72) 56%, rgba(233, 218, 198, 0.44)),
+    #f4ecdd;
 }
 
 .animal-3d-stage::before,
@@ -1032,7 +1031,7 @@ textarea {
   width: 180px;
   height: 24px;
   border-radius: 100% 0;
-  background: rgba(58, 98, 60, 0.18);
+  background: rgba(105, 80, 64, 0.14);
   filter: blur(2px);
   content: "";
   pointer-events: none;
@@ -1065,7 +1064,7 @@ textarea {
   align-items: center;
   justify-content: center;
   gap: 7px;
-  color: rgba(255, 251, 235, 0.82);
+  color: rgba(73, 58, 50, 0.8);
   font-size: 9px;
 }
 
@@ -1081,10 +1080,10 @@ textarea {
   align-items: center;
   gap: 5px;
   padding: 5px 7px;
-  border: 1px solid rgba(255, 252, 236, 0.2);
+  border: 1px solid rgba(91, 70, 58, 0.18);
   border-radius: 6px;
-  color: rgba(255, 251, 236, 0.78);
-  background: rgba(30, 61, 41, 0.3);
+  color: rgba(73, 58, 50, 0.74);
+  background: rgba(255, 252, 243, 0.78);
   font-size: 7px;
   pointer-events: none;
   backdrop-filter: blur(7px);
@@ -1094,7 +1093,7 @@ textarea {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #e7e9aa;
+  background: #83a768;
 }
 
 .animal-3d-loading {
@@ -1119,76 +1118,33 @@ textarea {
   place-content: center;
   justify-items: center;
   overflow: hidden;
-  color: #fffbed;
-  background: linear-gradient(155deg, #d5dec8, #749173 62%, #3a563f);
+  color: #493a32;
+  background:
+    radial-gradient(circle at 50% 42%, #fffdf5, #f4eadb 66%, #eadfce);
 }
 
 .animal-3d-fallback__halo {
   position: absolute;
-  width: 260px;
-  height: 260px;
-  border: 1px solid rgba(255, 252, 235, 0.18);
+  width: 280px;
+  height: 280px;
+  border: 1px dashed rgba(94, 72, 59, 0.18);
   border-radius: 50%;
-  box-shadow: 0 0 80px rgba(250, 242, 210, 0.18) inset;
+  box-shadow: 0 0 60px rgba(255, 251, 239, 0.9) inset;
 }
 
-.animal-3d-fallback__face {
+.animal-3d-fallback__art {
   position: relative;
-  width: 150px;
-  height: 135px;
-  border-radius: 48% 48% 44% 44%;
-  background: radial-gradient(
-    circle at 38% 28%,
-    color-mix(in srgb, var(--fallback-face, #f4dfd4) 78%, white),
-    var(--fallback-face, #c58a79) 68%,
-    color-mix(in srgb, var(--fallback-face, #c58a79) 72%, #4c332b)
-  );
-  box-shadow: 0 24px 35px rgba(26, 52, 32, 0.2);
+  z-index: 1;
+  width: min(74vw, 300px);
+  height: min(74vw, 300px);
+  animation: sticker-fallback-bob 4.2s ease-in-out infinite;
 }
 
-.animal-3d-fallback__face::before,
-.animal-3d-fallback__face::after {
-  position: absolute;
-  z-index: -1;
-  top: -13px;
-  width: 50px;
-  height: 58px;
-  border-radius: 48% 48% 40% 40%;
-  background: var(--fallback-fur, #a5665b);
-  content: "";
-}
-
-.animal-3d-fallback__face::before {
-  left: 3px;
-  transform: rotate(-18deg);
-}
-
-.animal-3d-fallback__face::after {
-  right: 3px;
-  transform: rotate(18deg);
-}
-
-.animal-3d-fallback__face span {
-  position: absolute;
-  top: 49px;
-  width: 29px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--fallback-eye, #4d342c);
-}
-
-.animal-3d-fallback__face span:first-child { left: 34px; }
-.animal-3d-fallback__face span:last-child { right: 34px; }
-
-.animal-3d-fallback__face i {
-  position: absolute;
-  bottom: 25px;
-  left: 50%;
-  width: 24px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--fallback-eye, #4c3431);
-  transform: translateX(-50%);
+.animal-3d-fallback__art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .animal-3d-fallback > div:last-child {
@@ -1201,13 +1157,18 @@ textarea {
 }
 
 .animal-3d-fallback strong {
-  font-family: "STSong", "Songti SC", serif;
+  font-family: "Kaiti SC", "STKaiti", "KaiTi", "STSong", serif;
   font-size: 21px;
 }
 
 .animal-3d-fallback small {
-  color: rgba(255, 251, 234, 0.68);
+  color: rgba(73, 58, 50, 0.62);
   font-size: 8px;
+}
+
+@keyframes sticker-fallback-bob {
+  0%, 100% { transform: translateY(0) rotate(-0.4deg); }
+  50% { transform: translateY(-5px) rotate(0.6deg); }
 }
 
 /* Custom artwork */
@@ -3513,11 +3474,11 @@ textarea {
 }
 
 .home-screen .home-hero__stage .painted-animal__image {
-  scale: 1.06;
+  scale: 0.98;
 }
 
 .detail-screen .detail-model .painted-animal__image {
-  scale: 1.02;
+  scale: 0.95;
 }
 
 .preset-card {

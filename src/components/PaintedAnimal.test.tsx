@@ -20,7 +20,7 @@ describe("PaintedAnimal", () => {
       );
       expect(illustration).toHaveAttribute("data-motion");
       expect(image).not.toBeNull();
-      expect(image?.src).toContain(`/stickers/${animal.id}.png`);
+      expect(image?.src).toContain(`/stickers/${animal.id}.svg`);
       expect(image?.alt).toContain(animal.name);
 
       unmount();

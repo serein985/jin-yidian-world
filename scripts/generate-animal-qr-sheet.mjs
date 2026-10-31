@@ -35,8 +35,8 @@ const animals = [
 
 const cards = await Promise.all(
   animals.map(async ([id, name, species, background, ink]) => {
-    const sticker = await readFile(resolve("public/stickers", `${id}.png`));
-    const stickerUrl = `data:image/png;base64,${sticker.toString("base64")}`;
+    const sticker = await readFile(resolve("public/stickers", `${id}.svg`));
+    const stickerUrl = `data:image/svg+xml;base64,${sticker.toString("base64")}`;
     const url = new URL(baseUrl);
     url.search = "";
     url.searchParams.set("animal", `preset-${id}`);

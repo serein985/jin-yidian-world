@@ -16,5 +16,8 @@ describe("Animal3DStage", () => {
       screen.getByRole("img", { name: "小橘猫栗栗静态形象" }),
     ).toBeInTheDocument();
     expect(screen.getByText("栗栗")).toBeInTheDocument();
+    expect(
+      document.querySelector('.animal-3d-fallback img[src$="/stickers/red-panda.svg"]'),
+    ).not.toBeNull();
   });
 });

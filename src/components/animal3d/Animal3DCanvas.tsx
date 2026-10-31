@@ -2,8 +2,7 @@ import { ContactShadows, OrbitControls, Sparkles } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import type { PresetAnimalDefinition } from "../../domain/preset-animals";
-import { getModelConfig } from "./model-configs";
-import { PlushAnimal } from "./PlushAnimal";
+import { StickerDiorama } from "./StickerDiorama";
 
 interface Animal3DCanvasProps {
   preset: PresetAnimalDefinition;
@@ -20,13 +19,12 @@ export function Animal3DCanvas({
   variant,
   onTouchRegion,
 }: Animal3DCanvasProps) {
-  const config = getModelConfig(preset.id);
   return (
     <Canvas
       camera={
         variant === "home"
-          ? { position: [0, 1.3, 6.2], fov: 35 }
-          : { position: [0, 1.26, 7.15], fov: 35 }
+          ? { position: [0, 0.25, 6.2], fov: 35 }
+          : { position: [0, 0.2, 6.8], fov: 35 }
       }
       dpr={reducedQuality ? [1, 1.25] : [1, 2]}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
@@ -52,17 +50,17 @@ export function Animal3DCanvas({
         />
         <pointLight position={[0, 1.8, 3]} intensity={0.5} color="#ffd1b2" />
         <group
-          scale={variant === "home" ? 0.8 : 0.76}
-          position={[0, variant === "home" ? -0.04 : 0, 0]}
+          scale={variant === "home" ? 0.94 : 1.12}
+          position={[0, variant === "home" ? -0.08 : -0.04, 0]}
         >
-          <PlushAnimal
-            config={config}
+          <StickerDiorama
+            preset={preset}
             interactive={interactive}
             onTouchRegion={onTouchRegion}
           />
         </group>
         <ContactShadows
-          position={[0, -0.72, 0]}
+          position={[0, -1.08, 0]}
           opacity={0.34}
           scale={5.2}
           blur={2.8}
@@ -89,7 +87,7 @@ export function Animal3DCanvas({
           maxPolarAngle={Math.PI * 0.57}
           autoRotate={false}
           autoRotateSpeed={0.32}
-          target={[0, variant === "home" ? 0.96 : 1.04, 0]}
+          target={[0, 0.04, 0]}
         />
       </Suspense>
     </Canvas>

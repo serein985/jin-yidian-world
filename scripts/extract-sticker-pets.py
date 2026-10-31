@@ -24,7 +24,12 @@ PET_CROPS = {
 }
 
 
-def extract_subject(image: Image.Image, box: tuple[int, int, int, int]) -> Image.Image:
+def extract_subject(
+    image: Image.Image,
+    box: tuple[int, int, int, int],
+    *,
+    remove_right_edge_artifacts: bool = False,
+) -> Image.Image:
     crop = image.crop(box).convert("RGB")
     pixels = np.asarray(crop)
     hsv = cv2.cvtColor(pixels, cv2.COLOR_RGB2HSV)
@@ -48,15 +53,29 @@ def extract_subject(image: Image.Image, box: tuple[int, int, int, int]) -> Image
         raise ValueError("No foreground components were found in the crop.")
 
     largest_area = max(stats[label, cv2.CC_STAT_AREA] for label in range(1, count))
+    largest_label = max(
+        range(1, count), key=lambda label: stats[label, cv2.CC_STAT_AREA]
+    )
     crop_height = alpha.shape[0]
     for label in range(1, count):
         top = stats[label, cv2.CC_STAT_TOP]
+        left = stats[label, cv2.CC_STAT_LEFT]
+        width = stats[label, cv2.CC_STAT_WIDTH]
         height = stats[label, cv2.CC_STAT_HEIGHT]
         area = stats[label, cv2.CC_STAT_AREA]
         near_horizontal_edge = top <= 2 or top + height >= crop_height - 2
         small_edge_fragment = area < largest_area * 0.2
         if near_horizontal_edge and small_edge_fragment:
             alpha[labels == label] = 0
+            continue
+        if remove_right_edge_artifacts and label != largest_label:
+            center_x = left + width / 2
+            center_y = top + height / 2
+            if (
+                center_x > alpha.shape[1] * 0.72
+                and center_y > crop_height * 0.35
+            ):
+                alpha[labels == label] = 0
 
     alpha = cv2.GaussianBlur(alpha, (3, 3), 0.45)
     rgba = np.dstack((pixels, alpha))
@@ -69,7 +88,7 @@ def extract_subject(image: Image.Image, box: tuple[int, int, int, int]) -> Image
 
     subject = result.crop(bounds)
     side = max(subject.width, subject.height)
-    padding = max(18, round(side * 0.1))
+    padding = max(8, round(side * 0.07))
     canvas_side = side + padding * 2
     canvas = Image.new("RGBA", (canvas_side, canvas_side), (0, 0, 0, 0))
     canvas.alpha_composite(
@@ -92,7 +111,11 @@ def main() -> None:
     args.output.mkdir(parents=True, exist_ok=True)
 
     for name, box in PET_CROPS.items():
-        subject = extract_subject(source, box)
+        subject = extract_subject(
+            source,
+            box,
+            remove_right_edge_artifacts=name == "tiger",
+        )
         subject.save(args.output / f"{name}.png", optimize=True)
 
     print(f"Wrote {len(PET_CROPS)} sticker assets to {args.output}")

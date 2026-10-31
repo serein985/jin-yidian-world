@@ -77,11 +77,25 @@ test("complete personalized animal and calendar flow", async ({ page }) => {
   expect(detailIllustration.byteLength).toBeGreaterThan(20_000);
   await page.getByRole("button", { name: "3D", exact: true }).click();
   await expect(page.locator(".animal-3d-stage canvas")).toBeVisible();
+  await expect(page.locator(".animal-3d-stage")).toHaveAttribute(
+    "data-model-style",
+    "layered-vector-diorama",
+  );
   await page.waitForTimeout(1200);
   const detail3D = await page.locator(".detail-model").screenshot({
     path: "work/personalized-3d-detail.png",
   });
   expect(detail3D.byteLength).toBeGreaterThan(20_000);
+  const modelBox = await page.locator(".animal-3d-stage canvas").boundingBox();
+  expect(modelBox).not.toBeNull();
+  await page.mouse.click(
+    modelBox!.x + modelBox!.width / 2,
+    modelBox!.y + modelBox!.height / 2,
+  );
+  await expect(page.getByRole("meter", { name: "栗栗的喂养值" })).toHaveAttribute(
+    "aria-valuenow",
+    "1",
+  );
   await page.getByRole("button", { name: "返回" }).click();
 
   await page.getByRole("button", { name: "添加动物" }).click();

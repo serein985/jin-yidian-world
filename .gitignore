@@ -1,4 +1,5 @@
 node_modules/
+.venv-vtracer/
 .vite/
 dist/
 playwright-report/

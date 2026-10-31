@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState, type CSSProperties } from "react";
+import { lazy, Suspense, useState } from "react";
 import type { PresetAnimalDefinition } from "../../domain/preset-animals";
 
 const Animal3DCanvas = lazy(() =>
@@ -50,6 +50,7 @@ export function Animal3DStage({
       className="animal-3d-stage"
       role="img"
       aria-label={`可旋转的${preset.species}${preset.name}3D舞台`}
+      data-model-style="layered-vector-diorama"
     >
       <Suspense
         fallback={
@@ -66,7 +67,7 @@ export function Animal3DStage({
       </Suspense>
       <div className="animal-3d-caption">
         <span className="animal-3d-caption__dot" aria-hidden="true" />
-        <span>拖拽旋转 · 双指缩放</span>
+        <span>拖拽立体纸雕 · 双指缩放</span>
       </div>
     </div>
   );
@@ -79,25 +80,16 @@ function AnimalStageFallback({
   preset: PresetAnimalDefinition;
   loading?: boolean;
 }) {
-  const style = {
-    "--fallback-fur": preset.palette.primary,
-    "--fallback-face": preset.palette.secondary,
-    "--fallback-inner": preset.palette.inner,
-    "--fallback-accent": preset.palette.accent,
-    "--fallback-eye": preset.palette.eye,
-  } as CSSProperties;
+  const artUrl = `${import.meta.env.BASE_URL}stickers/${preset.id}.svg`;
   return (
     <div
       className={`animal-3d-fallback animal-3d-fallback--${preset.id}`}
-      style={style}
       role="img"
       aria-label={`${preset.species}${preset.name}静态形象`}
     >
       <div className="animal-3d-fallback__halo" aria-hidden="true" />
-      <div className="animal-3d-fallback__face" aria-hidden="true">
-        <span />
-        <span />
-        <i />
+      <div className="animal-3d-fallback__art" aria-hidden="true">
+        <img src={artUrl} alt="" />
       </div>
       <div>
         <strong>{preset.name}</strong>

@@ -17,7 +17,7 @@ export function PaintedAnimal({
   compact = false,
 }: PaintedAnimalProps) {
   const preset = PRESET_ANIMALS_BY_ID[presetId];
-  const artUrl = `${import.meta.env.BASE_URL}stickers/${presetId}.png`;
+  const artUrl = `${import.meta.env.BASE_URL}stickers/${presetId}.svg`;
 
   return (
     <div
